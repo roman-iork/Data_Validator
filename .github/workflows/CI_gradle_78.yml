@@ -23,7 +23,7 @@ jobs:
     - name: Code Coverage
       uses: paambaati/codeclimate-action@v5.0.0
       env:
-        CC_TEST_REPORTER_ID: ${{secrets.CdCl_TEST_REPORTER_ID_78}}
+        CC_TEST_REPORTER_ID: ${{secrets.CDCL_TEST_REPORTER_ID_78}}
         JACOCO_SOURCE_PATH: "${{github.workspace}}/app/src/main/java"
       with:
         workingDirectory: ./app
