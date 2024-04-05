@@ -1,8 +1,11 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/roman-iork/java-project-78/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/roman-iork/java-project-78/actions)
 
-### Maintainability
+### Continious Integration:
+[![Java CI with Gradle](https://github.com/roman-iork/java-project-78/actions/workflows/CI_gradle_78.yml/badge.svg)](https://github.com/roman-iork/java-project-78/actions/workflows/CI_gradle_78.yml)
+
+### Maintainability:
 [![Maintainability](https://api.codeclimate.com/v1/badges/9adce84a919ce8fa5123/maintainability)](https://codeclimate.com/github/roman-iork/java-project-78/maintainability)
 
-### Code Coverage
+### Code Coverage:
 [![Test Coverage](https://api.codeclimate.com/v1/badges/9adce84a919ce8fa5123/test_coverage)](https://codeclimate.com/github/roman-iork/java-project-78/test_coverage)
