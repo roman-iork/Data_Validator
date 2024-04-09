@@ -2,10 +2,8 @@ package hexlet.code;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StringSchema {
+public class StringSchema extends BaseSchema<String> {
     private Map<String, Object> restrictions = new HashMap<>();
-    private Map<String, Boolean> validations = new HashMap<>();
-
 
     public StringSchema required() {
         restrictions.put("required", true);
@@ -22,25 +20,18 @@ public class StringSchema {
         return this;
     }
 
-    public boolean isValid(String string) {
-        validations.put("required", computeRequired(string));
-        validations.put("minLength", computeMinLength(string));
-        validations.put("contains", computeContains(string));
-        return !validations.containsValue(false);
-    }
-
-    private boolean computeRequired(String string) {
+    public boolean computeFirstRestriction(String string) {
         var isRequired = restrictions.get("required");
         return isRequired == null || string != null && !string.isEmpty();
     }
 
-    private boolean computeMinLength(String string) {
+    public boolean computeSecondRestriction(String string) {
         var minLength = restrictions.get("minLength");
-        return minLength == null || string != null && string.length() >= (int) minLength;
+        return minLength == null || string == null || string.length() >= (int) minLength;
     }
 
-    private boolean computeContains(String string) {
+    public boolean computeThirdRestriction(String string) {
         var subString = restrictions.get("contains");
-        return subString == null || string != null && string.contains((String) subString);
+        return subString == null || string == null || string.contains((String) subString);
     }
 }

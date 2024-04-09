@@ -10,71 +10,53 @@ class ValidatorTest {
     @Test
     public void testIsValidStringNoRestrictions() {
         var validator = new Validator();
-        var strVal = validator.string();
-        assertTrue(strVal.isValid(""));
-        assertTrue(strVal.isValid(null));
-        assertTrue(strVal.isValid("abc"));
+        var strVal1 = validator.string();
+        assertTrue(strVal1.isValid(""));
+        assertTrue(strVal1.isValid(null));
+        assertTrue(strVal1.isValid("abc"));
+        strVal1.required();
+        assertFalse(strVal1.isValid(""));
+        assertFalse(strVal1.isValid(null));
+        assertTrue(strVal1.isValid("abc"));
+        strVal1.minLength(4);
+        assertFalse(strVal1.isValid("ab"));
+        assertTrue(strVal1.isValid("abcd"));
+        strVal1.contains("ilk");
+        assertFalse(strVal1.isValid("mil"));
+        assertFalse(strVal1.isValid("ilk"));
+        assertTrue(strVal1.isValid("milk"));
+        strVal1.contains("ilk").minLength(2).contains("k");
+        assertFalse(strVal1.isValid("k"));
+        assertTrue(strVal1.isValid("lk"));
+        var strVal2 = validator.string();
+        strVal2.minLength(2);
+        assertTrue(strVal2.isValid(null));
+        strVal2.contains("mi");
+        assertTrue(strVal2.isValid(null));
     }
 
     @Test
-    public void testIsValidStringRequired() {
+    public void testIsValidNumber() {
         var validator = new Validator();
-        var strVal = validator.string();
-        strVal.required();
-        assertFalse(strVal.isValid(""));
-        assertFalse(strVal.isValid(null));
-        assertTrue(strVal.isValid("abc"));
-    }
-
-    @Test
-    public void testIsValidStringMinLength() {
-        var validator = new Validator();
-        var strVal = validator.string();
-        strVal.minLength(3);
-        assertFalse(strVal.isValid(""));
-        assertFalse(strVal.isValid(null));
-        assertTrue(strVal.isValid("abc"));
-    }
-
-    @Test
-    public void testIsValidStringContains() {
-        var validator = new Validator();
-        var strVal = validator.string();
-        strVal.contains("olo");
-        assertFalse(strVal.isValid(""));
-        assertFalse(strVal.isValid(null));
-        assertTrue(strVal.isValid("moloko"));
-        assertFalse(strVal.isValid("mol"));
-    }
-
-    @Test
-    public void testIsValidStringCombined() {
-        var validator = new Validator();
-        var strVal = validator.string();
-        strVal.required();
-        strVal.minLength(4);
-        strVal.contains("olo");
-        assertFalse(strVal.isValid(""));
-        assertFalse(strVal.isValid(null));
-        assertTrue(strVal.isValid("moloko"));
-        assertFalse(strVal.isValid("olo"));
-    }
-
-    @Test
-    public void testIsValidStringRestrictionRepetition() {
-        var validator = new Validator();
-        var strVal = validator.string();
-        strVal.minLength(4);
-        assertTrue(strVal.isValid("moloko"));
-        strVal.minLength(8);
-        assertFalse(strVal.isValid("moloko"));
-    }
-
-    @Test
-    public void testIsValidStringRestrictionChained() {
-        var validator = new Validator();
-        var strVal = validator.string();
-        strVal.required().minLength(6).minLength(4).contains("mil").contains("ilk").minLength(2);
-        assertTrue(strVal.isValid("milk"));
+        var numVal1 = validator.number();
+        assertTrue(numVal1.isValid(null));
+        assertTrue(numVal1.isValid(5));
+        numVal1.required();
+        assertFalse(numVal1.isValid(null));
+        assertTrue(numVal1.isValid(5));
+        numVal1.positive();
+        assertFalse(numVal1.isValid(-5));
+        assertTrue(numVal1.isValid(5));
+        numVal1.range(-10, 10);
+        assertFalse(numVal1.isValid(-5));
+        assertTrue(numVal1.isValid(5));
+        numVal1.range(-10, 10).range(0, 2);
+        assertFalse(numVal1.isValid(-5));
+        assertFalse(numVal1.isValid(5));
+        var numVal2 = validator.number();
+        numVal2.positive();
+        assertTrue(numVal2.isValid(null));
+        numVal2.range(0, 5);
+        assertTrue(numVal2.isValid(null));
     }
 }
