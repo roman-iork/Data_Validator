@@ -9,7 +9,7 @@ public abstract class BaseSchema<T> {
     protected Map<String, Object> restrictions = new HashMap<>();
 
 
-    public boolean isValid(T data) {
+    public final boolean isValid(T data) {
         validations.put("firstRestriction", computeFirstRestriction(data));
         validations.put("secondRestriction", computeSecondRestriction(data));
         validations.put("thirdRestriction", computeThirdRestriction(data));
