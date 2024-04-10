@@ -20,6 +20,11 @@ public final class MapSchema<K, V> extends BaseSchema<Map<K, V>> {
         return this;
     }
 
+    public boolean computeFirstRestriction(Map<K, V> data) {
+        var isRequired = restrictions.get("required");
+        return isRequired == null || data != null;
+    }
+
     public boolean computeSecondRestriction(Map<K, V> data) {
         var sizeRestriction = restrictions.get("size");
         return sizeRestriction == null || data == null || data.size() == (int) sizeRestriction;

@@ -17,7 +17,6 @@ public final class StringSchema extends BaseSchema<String> {
         return this;
     }
 
-    @Override
     public boolean computeFirstRestriction(String string) {
         var isRequired = restrictions.get("required");
         return isRequired == null || string != null && !string.isEmpty();

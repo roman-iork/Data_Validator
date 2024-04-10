@@ -16,10 +16,7 @@ public abstract class BaseSchema<T> {
         return !validations.containsValue(false);
     }
 
-    public boolean computeFirstRestriction(T data) {
-        var isRequired = restrictions.get("required");
-        return isRequired == null || data != null;
-    }
+    public abstract boolean computeFirstRestriction(T data);
     public abstract boolean computeSecondRestriction(T data);
     public abstract boolean computeThirdRestriction(T data);
 }

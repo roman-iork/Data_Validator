@@ -18,6 +18,11 @@ public final class NumberSchema extends BaseSchema<Integer> {
         return this;
     }
 
+    public boolean computeFirstRestriction(Integer data) {
+        var isRequired = restrictions.get("required");
+        return isRequired == null || data != null;
+    }
+
     public boolean computeSecondRestriction(Integer data) {
         var isPositive = restrictions.get("positive");
         return isPositive == null || data == null || data > 0;
