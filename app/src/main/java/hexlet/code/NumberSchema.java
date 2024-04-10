@@ -1,15 +1,7 @@
 package hexlet.code;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class NumberSchema extends BaseSchema<Integer> {
-    private Map<String, Object> restrictions = new HashMap<>();
 
-    public NumberSchema required() {
-        restrictions.put("required", true);
-        return this;
-    }
 
     public NumberSchema positive() {
         restrictions.put("positive", true);
@@ -20,11 +12,6 @@ public class NumberSchema extends BaseSchema<Integer> {
         restrictions.put("startRange", start);
         restrictions.put("endRange", end);
         return this;
-    }
-
-    public boolean computeFirstRestriction(Integer data) {
-        var isRequired = restrictions.get("required");
-        return isRequired == null || data != null;
     }
 
     public boolean computeSecondRestriction(Integer data) {

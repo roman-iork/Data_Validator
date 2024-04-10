@@ -1,14 +1,6 @@
 package hexlet.code;
-import java.util.HashMap;
-import java.util.Map;
 
 public class StringSchema extends BaseSchema<String> {
-    private Map<String, Object> restrictions = new HashMap<>();
-
-    public StringSchema required() {
-        restrictions.put("required", true);
-        return this;
-    }
 
     public StringSchema minLength(int minLength) {
         restrictions.put("minLength", minLength);

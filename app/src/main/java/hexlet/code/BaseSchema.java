@@ -6,6 +6,12 @@ import java.util.Map;
 public abstract class BaseSchema<T> {
 
     private Map<String, Boolean> validations = new HashMap<>();
+    protected Map<String, Object> restrictions = new HashMap<>();
+
+    public BaseSchema<T> required() {
+        restrictions.put("required", true);
+        return this;
+    }
 
     public boolean isValid(T data) {
         validations.put("firstRestriction", computeFirstRestriction(data));
@@ -14,7 +20,10 @@ public abstract class BaseSchema<T> {
         return !validations.containsValue(false);
     }
 
-    public abstract boolean computeFirstRestriction(T data);
+    public boolean computeFirstRestriction(T data) {
+        var isRequired = restrictions.get("required");
+        return isRequired == null || data != null;
+    }
     public abstract boolean computeSecondRestriction(T data);
     public abstract boolean computeThirdRestriction(T data);
 }
