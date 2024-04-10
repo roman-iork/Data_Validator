@@ -2,6 +2,11 @@ package hexlet.code;
 
 public class StringSchema extends BaseSchema<String> {
 
+    public StringSchema required() {
+        restrictions.put("required", true);
+        return this;
+    }
+
     public StringSchema minLength(int minLength) {
         restrictions.put("minLength", minLength);
         return this;

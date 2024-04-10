@@ -8,10 +8,6 @@ public abstract class BaseSchema<T> {
     private Map<String, Boolean> validations = new HashMap<>();
     protected Map<String, Object> restrictions = new HashMap<>();
 
-    public BaseSchema<T> required() {
-        restrictions.put("required", true);
-        return this;
-    }
 
     public boolean isValid(T data) {
         validations.put("firstRestriction", computeFirstRestriction(data));
