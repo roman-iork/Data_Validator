@@ -47,17 +47,27 @@ Map:
  - shape(Map<String, schema<String>> schema) - is for nested structures. Schema's value contains a string schema<String> with already set number of restrictions. Method "isValid(Map<String, String> object)" takes as argument a Map<String, String>. If schema's key equals object's key and object's value is validated by schema's value, then shape method will return "true".
 
 var num1 = Map.of("num", 5);
+
 var num2 = Map.of("num", 3);
 
+
 var validator = new Validator();
+
 var intVal = validator.integer();
+
 numVal.required().positive().range(4, 6);
+
 var numSchema = Map.of("num", intVal);
 
+
 var mapVal = validator.map();
+
 mapVal.shape(numSchema);
+
 mapVal.isValid(num1); // true
+
 mapVal.isValid(num2); // false
+
 
 isValid method can be called in chain:
 
@@ -68,11 +78,14 @@ A specified validator also remembers previous restrictions and renews them if co
 var intVal = validator.integer();
 
 intVal.range(-5, -3);
+
 intVal.isValid(-4); // true
 
 intVal.positive();
+
 intVal.isValid(4); // false
 
 intVal.range(-5, 5);
+
 intVal.isValid(4); // true
 
