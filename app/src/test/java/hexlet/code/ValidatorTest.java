@@ -1,6 +1,7 @@
 package hexlet.code;
 
 import hexlet.code.schemas.BaseSchema;
+import hexlet.code.schemas.MapSchema;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -71,7 +72,7 @@ class ValidatorTest {
     @Test
     public void testIsValidMap() {
         var validator = new Validator();
-        var mapVal1 = validator.map();
+        MapSchema<Integer, Integer> mapVal1 = validator.map();
         var data = new HashMap<Integer, Integer>();
         data.put(1, 1);
         assertTrue(mapVal1.isValid(null));
@@ -85,7 +86,7 @@ class ValidatorTest {
         assertTrue(mapVal1.isValid(data));
         mapVal1.sizeof(3).sizeof(2);
         assertTrue(mapVal1.isValid(data));
-        var mapVal2 = validator.map();
+        MapSchema<Integer, Integer> mapVal2 = validator.map();
         mapVal2.sizeof(2);
         assertTrue(mapVal2.isValid(null));
         mapVal2.required();
@@ -100,7 +101,7 @@ class ValidatorTest {
     @Test
     public void testIsValidShape() {
         var validator = new Validator();
-        var mapVal1 = validator.map();
+        MapSchema<String, String> mapVal1 = validator.map();
         var strVal1 = validator.string();
         var strVal2 = validator.string();
         var schemas1 = new HashMap<String, BaseSchema<String>>();
@@ -112,8 +113,8 @@ class ValidatorTest {
         var data3 = Map.of("thing", "item2", "stat", "=yes");
         assertTrue(mapVal1.isValid(data1));
         assertFalse(mapVal1.isValid(data2));
-        assertFalse(mapVal1.isValid(data3));
-        var mapVal2 = validator.map();
+        assertTrue(mapVal1.isValid(data3));
+        MapSchema<Integer, Integer> mapVal2 = validator.map();
         var numVal1 = validator.number();
         var numVal2 = validator.number();
         var schemas2 = new HashMap<Integer, BaseSchema<Integer>>();
@@ -126,11 +127,20 @@ class ValidatorTest {
         var data5 = new HashMap<Integer, Integer>();
         data5.put(1, 5);
         data5.put(3, 50);
+        assertTrue(mapVal2.isValid(data4));
+        assertTrue(mapVal2.isValid(data5));
+        MapSchema<String, Integer> mapVal3 = validator.map();
+        var schemas3 = new HashMap<String, BaseSchema<Integer>>();
+        schemas3.put("3", numVal1.required().range(-5, 6));
+        schemas3.put("5", numVal1.range(1, 6));
+        mapVal3.shape(schemas3);
         var data6 = new HashMap<String, Integer>();
         data6.put("1", 5);
         data6.put("2", null);
-        assertTrue(mapVal2.isValid(data4));
-        assertFalse(mapVal2.isValid(data5));
-        assertFalse(mapVal2.isValid(data6));
+        assertTrue(mapVal3.isValid(data6));
+        MapSchema<String, String> mapVal4 = validator.map();
+        mapVal4.shape(null);
+        assertTrue(mapVal4.isValid(data1));
+        assertTrue(mapVal3.isValid(null));
     }
 }

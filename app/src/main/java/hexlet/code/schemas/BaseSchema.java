@@ -1,22 +1,23 @@
 package hexlet.code.schemas;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.Predicate;
 
 public abstract class BaseSchema<T> {
 
-    private Map<String, Boolean> validations = new HashMap<>();
-    protected Map<String, Object> restrictions = new HashMap<>();
+    protected Map<String, Predicate<T>> checks = new LinkedHashMap<>();
 
-
-    public final boolean isValid(T data) {
-        validations.put("firstRestriction", computeFirstRestriction(data));
-        validations.put("secondRestriction", computeSecondRestriction(data));
-        validations.put("thirdRestriction", computeThirdRestriction(data));
-        return !validations.containsValue(false);
+    protected final void addCheck(String checkName, Predicate<T> check) {
+        checks.put(checkName, check);
     }
 
-    public abstract boolean computeFirstRestriction(T data);
-    public abstract boolean computeSecondRestriction(T data);
-    public abstract boolean computeThirdRestriction(T data);
+    public final boolean isValid(T data) {
+        for (var check : checks.values()) {
+            if (!check.test(data)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

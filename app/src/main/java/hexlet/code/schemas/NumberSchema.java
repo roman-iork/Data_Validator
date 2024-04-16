@@ -1,36 +1,25 @@
 package hexlet.code.schemas;
 
+import java.util.Objects;
+import java.util.function.Predicate;
+
 public final class NumberSchema extends BaseSchema<Integer> {
 
     public NumberSchema required() {
-        restrictions.put("required", true);
+        Predicate<Integer> isMeaningful = Objects::nonNull;
+        addCheck("required", isMeaningful);
         return this;
     }
 
     public NumberSchema positive() {
-        restrictions.put("positive", true);
+        Predicate<Integer> isPositive = data -> data == null || data >= 0;
+        addCheck("positive", isPositive);
         return this;
     }
 
     public NumberSchema range(int start, int end) {
-        restrictions.put("startRange", start);
-        restrictions.put("endRange", end);
+        Predicate<Integer> isInsideRange = data -> data == null || data >= start && data <= end;
+        addCheck("range", isInsideRange);
         return this;
-    }
-
-    public boolean computeFirstRestriction(Integer data) {
-        var isRequired = restrictions.get("required");
-        return isRequired == null || data != null;
-    }
-
-    public boolean computeSecondRestriction(Integer data) {
-        var isPositive = restrictions.get("positive");
-        return isPositive == null || data == null || data > 0;
-    }
-
-    public boolean computeThirdRestriction(Integer data) {
-        var startRange = restrictions.get("startRange");
-        var endRange = restrictions.get("endRange");
-        return startRange == null || data == null || data >= (int) startRange && data <= (int) endRange;
     }
 }
