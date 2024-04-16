@@ -25,7 +25,7 @@ var mapVal = validator.map();
 
 Now we can set restrictions (will be described later) to our specified validator and than call method "isValid(<T> object)" to check if our object fits restrictions.
 
-###Setting restrictions.
+####Setting restrictions.
 String:
  - required() - means that our object can't be null or empty string
  - minLength(int length) - sets min length of the object

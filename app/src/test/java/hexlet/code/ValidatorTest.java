@@ -61,9 +61,9 @@ class ValidatorTest {
         assertFalse(numVal1.isValid(5));
         var numVal2 = validator.number();
         numVal2.positive();
-        assertTrue(numVal2.isValid(null));
+        assertFalse(numVal2.isValid(null));
         numVal2.range(0, 5);
-        assertTrue(numVal2.isValid(null));
+        assertFalse(numVal2.isValid(null));
         numVal2.required().positive().range(2, 6);
         assertFalse(numVal1.isValid(7));
     }

@@ -12,13 +12,13 @@ public final class NumberSchema extends BaseSchema<Integer> {
     }
 
     public NumberSchema positive() {
-        Predicate<Integer> isPositive = data -> data == null || data >= 0;
+        Predicate<Integer> isPositive = data -> data != null && data >= 0;
         addCheck("positive", isPositive);
         return this;
     }
 
     public NumberSchema range(int start, int end) {
-        Predicate<Integer> isInsideRange = data -> data == null || data >= start && data <= end;
+        Predicate<Integer> isInsideRange = data -> data != null && data >= start && data <= end;
         addCheck("range", isInsideRange);
         return this;
     }
