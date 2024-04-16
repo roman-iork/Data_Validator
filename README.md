@@ -11,7 +11,7 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/9adce84a919ce8fa5123/test_coverage)](https://codeclimate.com/github/roman-iork/java-project-78/test_coverage)
 
 
-### Data validator.
+#### Data validator.
 Allows to create a Validator object and to set a number of restrictions on it so that later check wheather the object to be checked is valid or not.
 
 var validator = new Validator();
@@ -25,7 +25,7 @@ var mapVal = validator.map();
 
 Now we can set restrictions (will be described later) to our specified validator and than call method "isValid(<T> object)" to check if our object fits restrictions.
 
-##Setting restrictions.
+###Setting restrictions.
 String:
  - required() - means that our object can't be null or empty string
  - minLength(int length) - sets min length of the object
@@ -44,7 +44,7 @@ Integer:
 Map:
  - required() - can't be null
  - sizeof(int size) - must be of this size
- - shape(Map<K, schema<T>> schema) - is for nested structures. Schema's value contains a spicified schema<T> with already set number of restrictions. Method "isValid(Map<K, T> object)" takes as argument a Map<K, T>. If schema's K equals object's K and object's T is validated by schema's V, than shape method will return "true".
+ - shape(Map<String, schema<String>> schema) - is for nested structures. Schema's value contains a string schema<String> with already set number of restrictions. Method "isValid(Map<String, String> object)" takes as argument a Map<String, String>. If schema's key equals object's key and object's value is validated by schema's value, than shape method will return "true".
 
 var num1 = Map.of("num", 5);
 var num2 = Map.of("num", 3);
