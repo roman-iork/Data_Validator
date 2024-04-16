@@ -23,7 +23,7 @@ var intVal = validator.integer();
 var mapVal = validator.map();
 
 
-Now we can set restrictions (will be described later) to our specified validator and than call method "isValid(<T> object)" to check if our object fits restrictions.
+Now we can set restrictions (will be described later) to our specified validator and then call method "isValid(<T> object)" to check if our object fits restrictions.
 
 ##### Setting restrictions.
 String:
@@ -44,7 +44,7 @@ Integer:
 Map:
  - required() - can't be null
  - sizeof(int size) - must be of this size
- - shape(Map<String, schema<String>> schema) - is for nested structures. Schema's value contains a string schema<String> with already set number of restrictions. Method "isValid(Map<String, String> object)" takes as argument a Map<String, String>. If schema's key equals object's key and object's value is validated by schema's value, than shape method will return "true".
+ - shape(Map<String, schema<String>> schema) - is for nested structures. Schema's value contains a string schema<String> with already set number of restrictions. Method "isValid(Map<String, String> object)" takes as argument a Map<String, String>. If schema's key equals object's key and object's value is validated by schema's value, then shape method will return "true".
 
 var num1 = Map.of("num", 5);
 var num2 = Map.of("num", 3);
